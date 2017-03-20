@@ -14,6 +14,11 @@ var invalid = {
             Error: "Please enter a valid URL"
         };
 
+//Error handler
+function error (){
+    return console.log(error);
+}
+
 
 // Require an original url and a short url in each document in a collection
 var createValidated = function(db, callback) {
@@ -27,19 +32,27 @@ var createValidated = function(db, callback) {
 	      }
 	   },	   
     function(err, results) {
-        if (err) return console.log(err);
+        if (!err) {
       console.log("Collection created.");
       callback();
+        }
+        else {
+            error();
+        }
     }
   );
 };
 
 //Create validated collection
 MongoClient.connect(address, function(err, db) {
-    if (err) return console.log(err);
+    if (!err) {
   createValidated(db, function() {
     db.close();
   });
+    }
+    else {
+        error();
+    }
 });
 
 //Create object to add to collection
@@ -54,16 +67,20 @@ function objectify (input) {
 //Add object to collection
 function addObject () {
     MongoClient.connect(address, function(err, db) {
-        if (err) return console.log(err);
+        if (!err) {
         db.collection('used').insert(object);
         db.close();
+        }
+        else {
+            error();
+        }
     });
 }
 
 //Check if url already exists in database, if so assign those values to object, if not assign new values to object and add it to the database
 function check (callback) {
     MongoClient.connect(address, function(err, db) {
-        if (err) return console.log(err); 
+        if (!err) {
         var cursor = db.collection('used').find({original_url: reqUrl}).toArray(function(err, documents) {
             if (err) console.log(err);
             console.log(documents.length);
@@ -85,8 +102,12 @@ function check (callback) {
             db.close();
             return;
             }
-        
+       
         });
+        }
+        else {
+            error();
+        }
     });
 }
 
