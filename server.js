@@ -14,14 +14,8 @@ var invalid = {
             Error: "Please enter a valid URL"
         };
 
-MongoClient.connect(address, function(err, db) {
-    if (err) return console.log(err);
-  createValidated(db, function() {
-    db.close();
-  });
-});
 
-
+// Require an original url and a short url in each document in a collection
 var createValidated = function(db, callback) {
   db.createCollection("used", 
 	   {
@@ -40,8 +34,15 @@ var createValidated = function(db, callback) {
   );
 };
 
+//Create validated collection
+MongoClient.connect(address, function(err, db) {
+    if (err) return console.log(err);
+  createValidated(db, function() {
+    db.close();
+  });
+});
 
-
+//Create object to add to collection
 function objectify (input) {
     count+=1;
         object = {
@@ -50,6 +51,7 @@ function objectify (input) {
         };
 }
 
+//Add object to collection
 function addObject () {
     MongoClient.connect(address, function(err, db) {
         if (err) return console.log(err);
@@ -58,6 +60,7 @@ function addObject () {
     });
 }
 
+//Check if url already exists in database, if so assign those values to object, if not assign new values to object and add it to the database
 function check (callback) {
     MongoClient.connect(address, function(err, db) {
         if (err) return console.log(err); 
@@ -89,6 +92,7 @@ function check (callback) {
 
 
 
+//If url is invalid, return error message, if not check for it in the database and send it
 app.get('*', function (req,res) {
     reqUrl = req.originalUrl.substr(1);
     base = req.protocol + '://' + req.get('host');
