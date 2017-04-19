@@ -3,7 +3,7 @@ var app = express();
 var path = require('path');
 var validUrl = require('valid-url');
 var MongoClient = require('mongodb').MongoClient;
-var address = 'mongodb://localhost:27017/myUrlsDb';
+var address = process.env.MONGOLAB_URI;
 
 
 var object = {}; 
