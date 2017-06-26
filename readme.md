@@ -17,5 +17,5 @@ To use this application (once it’s running) navigate to url ‘https://api-pro
 
 Example output: 
 
-{ original_url: "https://api-projects-kelfin373.c9users.io//http://www.google.com", short_url: "https://api-projects-kelfin373.c9users.io
-/1" }
+{ original_url: "https://kelifine-url-shortener.herokuapp.com/http://www.google.com", short_url: "https://kelifine-url-shortener.herokuapp.com/
+1" }

@@ -112,7 +112,6 @@ function check (callback) {
 }
 
 
-
 //If url is invalid, return error message, if not check for it in the database and send it
 app.get('*', function (req,res) {
     reqUrl = req.originalUrl.substr(1);
